@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  background-color: #0e2039;
+  background-color: #0e2039 !important;
   color: white;
 }
 
@@ -23,6 +23,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .app header {
@@ -131,4 +132,7 @@ body {
   height: 16px;
   width: 16px;
   margin-right: 4px;
+}
+.app .first-item{
+  margin-top: 20%;
 }

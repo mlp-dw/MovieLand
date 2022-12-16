@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './app.scss';
+import MovieCard from './components/MovieCard';
 import SearchBar from './components/searchBar'
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
 
 const API_KEY = '23aaa32';
 
@@ -31,17 +35,27 @@ export const App = () => {
   
   function displayMovieList(){
     // if (data){
-      //@ts-ignore
+      
       return data.map( movie => {
-          return <div key={movie.imdbID} id={movie.imdbID}>
-              <div className="img">
-                  <img  
-                      src={movie.Poster} 
-                      alt={movie.Title}
-                  />
-              </div>
-              <h6>{movie.Title}</h6>
+          return <div key={movie.imdbID}>
+              <MovieCard 
+                name={movie.Title}
+                image={movie.Poster}
+                year={movie.Year}
+                type={movie.Type}
+                id={movie.imdbID}
+              />
+              
           </div>
+          // <div key={movie.imdbID} id={movie.imdbID}>
+          //     <div className="img">
+          //         <img  
+          //             src={movie.Poster} 
+          //             alt={movie.Title}
+          //         />
+          //     </div>
+          //     <h6>{movie.Title}</h6>
+          // </div>
       })
     // }else{
     //     // <Error />
@@ -52,8 +66,13 @@ export const App = () => {
 
     <div className="app">
       <SearchBar />
+
+      <React.Fragment>
+      <CssBaseline />
+      <Container maxWidth="sm">
+
       { data ? (
-          <div>
+          <div className='first-item'>
             {displayMovieList()}
           </div>
         ):(  
@@ -63,6 +82,8 @@ export const App = () => {
           </div>
         )
       }  
+       </Container>
+    </React.Fragment>
     </div>
   );
 
