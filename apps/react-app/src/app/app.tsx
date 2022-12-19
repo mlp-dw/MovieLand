@@ -3,72 +3,48 @@ import './app.scss';
 import MovieCard from './components/MovieCard';
 import SearchBar from './components/searchBar'
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import { styled } from '@material-ui/core';
 import CircularUnderLoad from './components/loader';
-
-const API_KEY = '23aaa32';
+import { useDispatch, useSelector } from "react-redux";
+import { getMovies } from './reducers/MovieSlice';
+import MovieModel from './models/MovieModel';
 
 export const App = () => {
+  let dispatch = useDispatch();
+  let movieState = useSelector((state) => {
+    return state.movieStore
+  });
+  const [query, setQuery] = useState<string>('Jurassic Park');
   useEffect(() => {
-    document.title = `MovieLand`;
-
-    if (!URL){
-      setLoading(true);
+    if (movieState.movies.length === 0) {
+      dispatch(getMovies({query: query}))
     }
-    fetchData(URL);
-  }, [])
-  
-  const [isLoading, setLoading] = useState(true)
-  const [data, setData] = useState(null);
-  const [query, setQuery] = useState('jurassic park');
-  const URL = `https://omdbapi.com/?s=${query}&apikey=${API_KEY}`;
+  }, [query])
 
-  async function fetchData(url:string) {
-    try {
-      const response = await fetch(url)
-      const datas = await response.json()
-        // @ts-ignore
-      if(datas.Response == "True"){
-        setLoading(false);
-          // @ts-ignore
-        setData(datas.Search);
-      } 
 
-    } catch (err) {
-      console.log(err);
-    } 
-  }
-  console.log(data);
-  
   function displayMovieList(){
-      // @ts-ignore
-      return data.map( movie => {
-          return <div key={movie.imdbID}>
-              <MovieCard 
-                name={movie.Title}
-                image={movie.Poster}
-                year={movie.Year}
-                type={movie.Type}
-                id={movie.imdbID}
-              />
-              
+    return movieState.movies?.map( (movie:MovieModel) => {
+        return (
+          <div key={movie.imdbID}>
+            <MovieCard 
+              name={movie.Title}
+              image={movie.Poster}
+              year={movie.Year}
+              type={movie.Type}
+              id={movie.imdbID}
+            />
           </div>
-      })
+        )
+    })
   }
 
-  const search = e => {
+  function search (e:any){
     setQuery(e.target.value);
   }
-
-  const handleSubmit = () =>{
-    
-    if (query !== ''){
-      fetchData(URL)
-      setQuery(''); 
-    }else{
-      // <Error />
+  
+  function handleSubmit(e:KeyboardEvent){
+    if (e.key === "Enter") {
+      dispatch(getMovies({query: query}))
     }
   };  
 
@@ -82,9 +58,9 @@ export const App = () => {
 
       <React.Fragment>
         <CssBaseline />
-        <Container maxWidth="sm">
+        <Container maxWidth="md">
 
-          { data ? (
+          { movieState.movies ? (
               <div className='first-item'>
                 {displayMovieList()}
               </div>

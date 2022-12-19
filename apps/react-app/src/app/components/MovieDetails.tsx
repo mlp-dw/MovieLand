@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function MovieDetails() {
+export default function MovieDetails(props:any) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -37,7 +37,7 @@ export default function MovieDetails() {
   return (
     <div>
       <Button variant="contained" color="primary" type="button" onClick={handleOpen}>
-        See More <ChevronRightIcon />
+        Details <ChevronRightIcon />
       </Button>
       <Modal
         aria-labelledby="transition-modal-title"
@@ -53,11 +53,31 @@ export default function MovieDetails() {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <h2 id="transition-modal-title">Transition modal</h2>
-            <p id="transition-modal-description">react-transition-group animates me.</p>
+            <h2 id="transition-modal-title">details</h2>
+            <div id="transition-modal-description">
+              {/* <div className="movie-poster">
+                  <img src ={(props.movieDetails.Poster != "N/A") ? props.movieDetails.Poster : "../../assets/image_not_found.png"} alt="movie poster" />
+              </div>
+              <div className="movie-info">
+                  <h3 className="movie-title">${props.movieDetails.Title}</h3>
+                  <ul className="movie-misc-info">
+                      <li className="year">Year: ${props.movieDetails.Year}</li>
+                      <li className="rated">Ratings: ${props.movieDetails.Rated}</li>
+                      <li className="released">Released: ${props.movieDetails.Released}</li>
+                  </ul>
+                  <p className="genre"><b>Genre:</b> ${props.movieDetails.Genre}</p>
+                  <p className="writer"><b>Writer:</b> ${props.movieDetails.Writer}</p>
+                  <p className="actors"><b>Actors: </b>${props.movieDetails.Actors}</p>
+                  <p className="plot"><b>Plot:</b> ${props.movieDetails.Plot}</p>
+                  <p className="language"><b>Language:</b> ${props.movieDetails.Language}</p>
+                  <p className="awards"><b><i className="fas fa-award"></i></b> ${props.movieDetails.Awards}</p>
+              </div> */}
+            </div>
           </div>
         </Fade>
       </Modal>
+
+      
     </div>
   );
 }

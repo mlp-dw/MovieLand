@@ -77,19 +77,19 @@ function SearchBar(props:any) {
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-              value={props.input}
-              type='text'
-              name='search'
-              onChange={props.search}
-              onKeyDown={props.submit}
-            />
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+                value={props.input}
+                type='text'
+                name='search'
+                onChange={props.search}
+                onKeyDown={props.submit}
+                />
           </div>
         </Toolbar>
       </AppBar>

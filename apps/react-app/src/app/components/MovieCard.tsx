@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import { Theme, createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import MovieDetails from './MovieDetails';
+import { getMovieById } from '../reducers/MovieSlice';
+import MovieModel from '../models/MovieModel';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -40,6 +43,20 @@ export default function MovieCard(props:any) {
   const classes = useStyles();
   const theme = useTheme();
 
+  let dispatch = useDispatch();
+  let movieState = useSelector((state) => {
+    return state.movieStore
+  });;
+  useEffect(() => {
+    
+    function openDetails(id:string){
+        dispatch(getMovieById({imdbID:id}))
+  // console.log(movieState);
+  
+    }
+  }, [props.id])
+
+
   return (
     <Card className={classes.root} id={props.id}>
       <div className={classes.details}>
@@ -52,9 +69,12 @@ export default function MovieCard(props:any) {
               {props.year} ({props.type})
             </Typography>
           </div>
-          <MovieDetails />
+          <MovieDetails
+            onClick={openDetails(props.id)}
+          />
         </CardContent>
       </div>
+
       { props.image != "N/A"  ? (
         <CardMedia
           className={classes.cover}
@@ -69,7 +89,7 @@ export default function MovieCard(props:any) {
         />
         )
       } 
-      
+  
     </Card>
   );
 }

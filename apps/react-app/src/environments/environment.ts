@@ -4,3 +4,4 @@
 export const environment = {
   production: false,
 };
+export const apikey = '23aaa32';
