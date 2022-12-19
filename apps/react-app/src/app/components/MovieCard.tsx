@@ -5,6 +5,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import MovieDetails from './MovieDetails';
+import NotFound from '../../assets/image_not_found.png';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -16,6 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: '#143055',
       margin: '5% 0',
       justifyContent: 'space-between',
+      width: '100%',
     },
     details: {
       display: 'flex',
@@ -54,11 +56,21 @@ export default function MovieCard(props:any) {
           <MovieDetails />
         </CardContent>
       </div>
-      <CardMedia
-        className={classes.cover}
-        image={props.image}
-        title={props.name}
-      />
+      { props.image != "N/A"  ? (
+        <CardMedia
+          className={classes.cover}
+          image={props.image}
+          title={props.name}
+        />
+        ):(  
+          <CardMedia
+          className={classes.cover}
+          image={NotFound}
+          title={props.name}
+        />
+        )
+      } 
+      
     </Card>
   );
 }

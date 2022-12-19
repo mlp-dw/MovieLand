@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function SearchBar() {
+function SearchBar(props:any) {
   const classes = useStyles();
 
   return (
@@ -84,6 +84,11 @@ function SearchBar() {
                 input: classes.inputInput,
               }}
               inputProps={{ 'aria-label': 'search' }}
+              value={props.input}
+              type='text'
+              name='search'
+              onChange={props.search}
+              onKeyDown={props.submit}
             />
           </div>
         </Toolbar>

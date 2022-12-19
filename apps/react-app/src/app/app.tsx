@@ -5,28 +5,37 @@ import SearchBar from './components/searchBar'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import { styled } from '@material-ui/core';
+import CircularUnderLoad from './components/loader';
 
 const API_KEY = '23aaa32';
 
 export const App = () => {
   useEffect(() => {
     document.title = `MovieLand`;
+
+    if (!URL){
+      setLoading(true);
+    }
     fetchData(URL);
   }, [])
   
+  const [isLoading, setLoading] = useState(true)
   const [data, setData] = useState(null);
   const [query, setQuery] = useState('jurassic park');
-  const URL = `https://omdbapi.com/?s=${query}&page=1&apikey=${API_KEY}`;
+  const URL = `https://omdbapi.com/?s=${query}&apikey=${API_KEY}`;
 
   async function fetchData(url:string) {
     try {
       const response = await fetch(url)
       const datas = await response.json()
-  console.log(datas);
-
+        // @ts-ignore
       if(datas.Response == "True"){
+        setLoading(false);
+          // @ts-ignore
         setData(datas.Search);
       } 
+
     } catch (err) {
       console.log(err);
     } 
@@ -34,8 +43,7 @@ export const App = () => {
   console.log(data);
   
   function displayMovieList(){
-    // if (data){
-      
+      // @ts-ignore
       return data.map( movie => {
           return <div key={movie.imdbID}>
               <MovieCard 
@@ -47,43 +55,46 @@ export const App = () => {
               />
               
           </div>
-          // <div key={movie.imdbID} id={movie.imdbID}>
-          //     <div className="img">
-          //         <img  
-          //             src={movie.Poster} 
-          //             alt={movie.Title}
-          //         />
-          //     </div>
-          //     <h6>{movie.Title}</h6>
-          // </div>
       })
-    // }else{
-    //     // <Error />
-    // }
   }
+
+  const search = e => {
+    setQuery(e.target.value);
+  }
+
+  const handleSubmit = () =>{
+    
+    if (query !== ''){
+      fetchData(URL)
+      setQuery(''); 
+    }else{
+      // <Error />
+    }
+  };  
 
   return (
 
     <div className="app">
-      <SearchBar />
+      <SearchBar 
+        search={search}
+        submit={handleSubmit}
+      />
 
       <React.Fragment>
-      <CssBaseline />
-      <Container maxWidth="sm">
+        <CssBaseline />
+        <Container maxWidth="sm">
 
-      { data ? (
-          <div className='first-item'>
-            {displayMovieList()}
-          </div>
-        ):(  
-        //  <Error />
-          <div>
-            snif snif pourquooooiiiii T-T
-          </div>
-        )
-      }  
-       </Container>
-    </React.Fragment>
+          { data ? (
+              <div className='first-item'>
+                {displayMovieList()}
+              </div>
+            ):(  
+              <CircularUnderLoad /> 
+            )
+          }  
+
+        </Container>
+      </React.Fragment>
     </div>
   );
 
