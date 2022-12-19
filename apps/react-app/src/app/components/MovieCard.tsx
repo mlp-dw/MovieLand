@@ -5,7 +5,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import MovieDetails from './MovieDetails';
-import NotFound from '../../assets/image_not_found.png';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -65,7 +64,7 @@ export default function MovieCard(props:any) {
         ):(  
           <CardMedia
           className={classes.cover}
-          image={NotFound}
+          image="../../assets/image_not_found.png"
           title={props.name}
         />
         )
