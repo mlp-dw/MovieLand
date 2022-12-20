@@ -1,116 +1,87 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Button from '@material-ui/core/Button';
+import Dialog, { DialogProps } from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import CloseIcon from '@material-ui/icons/Close';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      maxWidth: 345,
-    },
-    media: {
-      height: 0,
-      paddingTop: '150%', // 16:9
-    },
-    expand: {
-      transform: 'rotate(0deg)',
-      marginLeft: 'auto',
-      transition: theme.transitions.create('transform', {
-        duration: theme.transitions.duration.shortest,
-      }),
-    },
-    expandOpen: {
-      transform: 'rotate(180deg)',
-    },
-    avatar: {
-      backgroundColor: red[500],
-    },
-  }),
-);
+export default function MovieDetails(props:any) {
+  const [open, setOpen] = React.useState(false);
+  const [scroll, setScroll] = React.useState<DialogProps['scroll']>('paper');
 
-export default function ModalCard(props:any) {
-  const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  const handleClickOpen = (scrollType: DialogProps['scroll']) => () => {
+    setOpen(true);
+    setScroll(scrollType);
   };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const descriptionElementRef = React.useRef<HTMLElement>(null);
+  React.useEffect(() => {
+    if (open) {
+      const { current: descriptionElement } = descriptionElementRef;
+      if (descriptionElement !== null) {
+        descriptionElement.focus();
+      }
+    }
+  }, [open]);
+
   return (
-    <Card className={classes.root}>
-      <CardHeader
-        title={props.title}
-        subheader={props.year}
-      />
-      <CardMedia
-        className={classes.media}
-        image={props.poster}
-        title="Paella dish"
-      />
-      {/* <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook together with your
-          guests. Add 1 cup of frozen peas along with the mussels, if you like.
-        </Typography>
-      </CardContent> */}
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </IconButton>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>Method:</Typography>
-          <Typography paragraph>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and set aside for 10
-            minutes.
-          </Typography>
-          <Typography paragraph>
-            Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over medium-high
-            heat. Add chicken, shrimp and chorizo, and cook, stirring occasionally until lightly
-            browned, 6 to 8 minutes. Transfer shrimp to a large plate and set aside, leaving chicken
-            and chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes, onion, salt and
-            pepper, and cook, stirring often until thickened and fragrant, about 10 minutes. Add
-            saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.
-          </Typography>
-          <Typography paragraph>
-            Add rice and stir very gently to distribute. Top with artichokes and peppers, and cook
-            without stirring, until most of the liquid is absorbed, 15 to 18 minutes. Reduce heat to
-            medium-low, add reserved shrimp and mussels, tucking them down into the rice, and cook
-            again without stirring, until mussels have opened and rice is just tender, 5 to 7
-            minutes more. (Discard any mussels that don’t open.)
-          </Typography>
-          <Typography>
-            Set aside off of the heat to let rest for 10 minutes, and then serve.
-          </Typography>
-        </CardContent>
-      </Collapse>
-    </Card>
+    <div>
+      <Button variant="contained" color="primary" onClick={handleClickOpen('body')}>
+        Details <ChevronRightIcon />
+      </Button>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        scroll={scroll}
+        aria-labelledby="scroll-dialog-title"
+        aria-describedby="scroll-dialog-description"
+      >
+          { props.getDetails ? 
+          <>
+              <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                  <CloseIcon/>
+                </Button>
+              </DialogActions>
+            <div className="custom-modal">
+                <div className="movie-poster">
+                    <img src ={(props.getDetails.Poster != "N/A") ? props.getDetails.Poster : "../../assets/image_not_found.png"} alt="movie poster" />
+                </div>
+                <div className="movie-info">
+                  {/* <div className="modal-header"> */}
+                    <h2 className="movie-title">{props.getDetails.Title} <span className="movie-year">{props.getDetails.Year}</span>
+                      <p className="movie-director">Directed by {props.getDetails.Director}</p>
+                      </h2>
+                    <div className="movie-header">
+                      <p className="movie-rating">{props.getDetails.imdbRating}</p>
+                      <FiberManualRecordIcon fontSize="small" />
+                      <p className="movie-runtime">{props.getDetails.Runtime}</p>
+
+                    </div>
+                      {/* <FiberManualRecordIcon fontSize="small" /> */}
+                    <p className="plot">{props.getDetails.Plot}</p>
+                    <p className="genre"><b>Genre:</b> {props.getDetails.Genre}</p>
+                    <p className="actors"><b>Actors:</b> {props.getDetails.Actors}</p>
+
+                    <p className="writer"><b>Writer:</b> {props.getDetails.Writer}</p>
+                    <p className="language"><b>Language:</b> {props.getDetails.Language}</p>
+                    <p className="awards"><b>Awards:</b> {props.getDetails.Awards}</p>
+                    <p className="awards"><b>BoxOffice</b> {props.getDetails.BoxOffice}</p>
+
+                </div>
+            </div>
+            </> 
+            : <></> }
+
+      </Dialog>
+    </div>
   );
 }

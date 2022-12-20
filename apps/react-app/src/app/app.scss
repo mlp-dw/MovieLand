@@ -43,8 +43,6 @@ body {
 
 .app h1 {
   text-align: center;
-  margin-left: 18px;
-  font-size: 24px;
 }
 
 .app h2 {
@@ -133,26 +131,171 @@ body {
   width: 16px;
   margin-right: 4px;
 }
-.app .first-item{
-  margin-top: 20%;
+
+
+
+.dinosaur{
+  margin-top:7%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: white;
+    img{
+      width: 10%;
+    }
 }
-.makeStyles-paper-13{
+.not-dinosaur{
+  color: white;
+  margin-top: 7%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+body > div.MuiDialog-root > div.MuiDialog-container.MuiDialog-scrollBody > div{
   color: white;
   background-color: #143055 !important;
-  width: 60%;
-  border: none !important;
+}
+body > div.MuiDialog-root > div.MuiDialog-container.MuiDialog-scrollBody > div > div.MuiDialogActions-root.MuiDialogActions-spacing > button{
+  color: white;
 }
 .custom-modal{
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-}
-.movie-info{
-  padding-left: 5%;
-  h2{
-    font-size:1.5em
+  padding: 0 5% 5% 5%;
+    
+  .movie-poster{
+    display: flex;
+    align-items: center;
   }
-  .year{
-    font-size: small;
+  
+  .movie-info{
+    padding-left: 5%;
+
+    h2{
+      font-size:1.850em;
+      .movie-director{
+        font-size: small;
+        margin: 0;
+      }
+    }
+    
+    .movie-year{
+      font-size: small;
+    }
+    .plot{
+      text-indent: 10%;
+      margin-bottom: 10%;
+    }
+    .movie-header{
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    
+    
+      .movie-rating{
+        border: 2px solid white;
+        width: 20%;
+        text-align: center;
+        font-size: 1rem;
+        padding: 5px;
+        font-weight: bold;
+      }
+    
+      .MuiSvgIcon-root{
+        font-size: 0.5rem;
+        margin-left: 2%;
+      }
+    
+      .movie-runtime{
+        padding: 0 2%;
+      }
+    }
+  }
+}
+.movie-card{
+  display: flex;
+  flex-wrap: wrap;
+  color: #ffffff;
+  background-color: #143055 !important;
+  margin: 5% 0;
+  justify-content: space-between;
+  width: 100%;
+  .movie-card-header{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+      .movie-card-header-title{
+        text-align: left;
+      }
+  }
+}
+@media screen and (max-width: 768px) {
+  .dinosaur{
+    padding: 0 5%;
+    margin-top: 20%;
+    img{
+      width: 25%;
+    }
+  }
+  .not-dinosaur{
+    padding: 0 5%;
+    color: white;
+    margin-top: 20%;
+  }
+  .custom-modal{
+    flex-direction: column;
+    align-items: center;
+    
+    .movie-info{
+      padding-left: 5%;
+      
+      h2{
+        font-size:1.5em;
+        text-align: center;
+        .movie-director{
+          padding: 0 2%;
+          margin: 0;
+        }
+      }
+      .movie-header{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+          .movie-rating{
+            border: 2px solid white;
+            width: 15%;
+            text-align: center;
+            font-size: 1rem;
+            padding: 5px;
+            font-weight: bold;
+          }
+          .MuiSvgIcon-root{
+            display: none;
+          }
+          .movie-runtime{
+            padding: 0 2%;
+          }
+      }
+    }
+  }
+  .movie-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 5%;
+    
+    .movie-card-header{
+      align-items: center;
+      justify-content: center;
+      .movie-card-header-title{
+        text-align: center;
+      }
+    }
   }
 }

@@ -74,7 +74,7 @@ export const getMovieById = createAsyncThunk(
   async (data: {imdbID: string}, thunkAPI) => {
     const response = await MovieServices.getById(data.imdbID);
     const movieData:any = await response.json();
-    // console.log('getid', movieData);
+    console.log('getid', movieData);
     
     if (movieData) {
       thunkAPI.dispatch(setMovie(movieData))

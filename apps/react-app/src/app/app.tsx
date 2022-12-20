@@ -10,6 +10,7 @@ import { getMovies } from './reducers/MovieSlice';
 import MovieModel from './models/MovieModel';
 import { store } from './store/store';
 export type RootState = ReturnType<typeof store.getState>
+import MovieIcon from '@material-ui/icons/Movie';
 
 export const App = () => {
   let dispatch = useDispatch();
@@ -57,15 +58,23 @@ export const App = () => {
         search={search}
         submit={handleSubmit}
       />
+      { query == "Jurassic Park" ? 
+        <div className='dinosaur'>
+          <img src='../../assets/furassic.png' />
+          <h1>Dinosaurs are the best</h1>
+        </div>
+      :
+        <h1 className='not-dinosaur'>Your movies <MovieIcon/> </h1>
 
+      }
       <React.Fragment>
         <CssBaseline />
         <Container maxWidth="md">
 
           { movieState.movies ? (
-              <div className='first-item'>
+              <>
                 {displayMovieList()}
-              </div>
+              </>
             ):(  
               <CircularUnderLoad /> 
             )
