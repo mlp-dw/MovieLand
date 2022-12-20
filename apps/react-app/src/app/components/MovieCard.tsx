@@ -8,6 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import MovieDetails from './MovieDetails';
 import { getMovieById } from '../reducers/MovieSlice';
 import MovieModel from '../models/MovieModel';
+import { store } from '../store/store';
+export type RootState = ReturnType<typeof store.getState>
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -44,23 +46,20 @@ export default function MovieCard(props:any) {
   const theme = useTheme();
 
   let dispatch = useDispatch();
-  let movieState = useSelector((state) => {
+  let movieState = useSelector((state: RootState) => {
     return state.movieStore
   });;
-  useEffect(() => {
-    
-    function openDetails(id:string){
-        dispatch(getMovieById({imdbID:id}))
-  // console.log(movieState);
   
-    }
-  }, [props.id])
-
+  function openDetails(id:string){
+    console.log('click');
+      dispatch(getMovieById({imdbID:props.id}))
+  }
 
   return (
     <Card className={classes.root} id={props.id}>
       <div className={classes.details}>
         <CardContent className={classes.content}>
+
           <div>
             <Typography component="h5" variant="h5">
               {props.name}
@@ -69,9 +68,13 @@ export default function MovieCard(props:any) {
               {props.year} ({props.type})
             </Typography>
           </div>
-          <MovieDetails
-            onClick={openDetails(props.id)}
-          />
+
+          <div onClick={()=>openDetails(props.id) }>
+            <MovieDetails
+              getDetails={movieState.movie}
+            />  
+          </div>
+
         </CardContent>
       </div>
 

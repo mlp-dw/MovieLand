@@ -8,10 +8,12 @@ import CircularUnderLoad from './components/loader';
 import { useDispatch, useSelector } from "react-redux";
 import { getMovies } from './reducers/MovieSlice';
 import MovieModel from './models/MovieModel';
+import { store } from './store/store';
+export type RootState = ReturnType<typeof store.getState>
 
 export const App = () => {
   let dispatch = useDispatch();
-  let movieState = useSelector((state) => {
+  let movieState = useSelector((state: RootState) => {
     return state.movieStore
   });
   const [query, setQuery] = useState<string>('Jurassic Park');
