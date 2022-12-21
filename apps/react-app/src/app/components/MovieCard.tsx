@@ -39,7 +39,7 @@ export default function MovieCard(props:any) {
   });;
   
   function openDetails(id:string){
-    console.log('click');
+    // console.log(movieState);
       dispatch(getMovieById({imdbID:props.id}))
   }
 

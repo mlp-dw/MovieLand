@@ -78,6 +78,7 @@ export const getMovieById = createAsyncThunk(
     
     if (movieData) {
       thunkAPI.dispatch(setMovie(movieData))
+      thunkAPI.dispatch(setIsLoading(false))
       return true;
     }
     // console.log(movie);
