@@ -36,12 +36,7 @@ const MovieSlice = createSlice({
   extraReducers: builder => {
     builder.addCase(getMovies.fulfilled, (state, action) => {
       state.isLoading = false;
-      // console.log('Login :', state);
     });
-    // builder.addCase(getUser.fulfilled, (state, action) => {
-    //   state.isLoading = false;
-    //   // console.log('getUser :', state);
-    // });
   },
 });
 
@@ -55,13 +50,11 @@ export const getMovies = createAsyncThunk(
     const movieData:any = await response.json();
     if (movieData) {
         if (movieData.Response == 'True') {
-            // console.log(movieData);
             let MovieArray: Array<MovieModel>  = movieData.Search.map((movie: IMovie)=>{
                 return new MovieModel(movie);
             })
-            // console.log(MovieArray);
             thunkAPI.dispatch(setMovies(MovieArray))
-            // thunkAPI.dispatch(setIsLoading(false));
+            thunkAPI.dispatch(setIsLoading(false));
             return true;
         }
     }
@@ -69,19 +62,18 @@ export const getMovies = createAsyncThunk(
     return true;
   },
 );
+
 export const getMovieById = createAsyncThunk(
   'movie/id',
   async (data: {imdbID: string}, thunkAPI) => {
     const response = await MovieServices.getById(data.imdbID);
     const movieData:any = await response.json();
-    console.log('getid', movieData);
     
     if (movieData) {
       thunkAPI.dispatch(setMovie(movieData))
       thunkAPI.dispatch(setIsLoading(false))
       return true;
     }
-    // console.log(movie);
     
     return true;
   },

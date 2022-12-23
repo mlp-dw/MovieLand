@@ -1,4 +1,4 @@
-import { apikey } from "../../environments/environment";
+import { apikey } from "../../local";
 
 class MovieServices {
     private API_KEY: string = apikey;

@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import { createStyles, alpha, Theme, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
+import ModalFavorites from './ModalFavorites'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -73,6 +74,9 @@ function SearchBar(props:any) {
           <Typography className={classes.title} variant="h6" noWrap>
             MovieLand
           </Typography>
+
+          <ModalFavorites />
+        
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -91,6 +95,7 @@ function SearchBar(props:any) {
                 onKeyDown={props.submit}
                 />
           </div>
+
         </Toolbar>
       </AppBar>
     </div>

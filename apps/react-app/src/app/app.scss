@@ -168,11 +168,13 @@ body > div.MuiDialog-root > div.MuiDialog-container.MuiDialog-scrollBody > div >
     
   .movie-poster{
     display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
   }
   
   .movie-info{
-    padding-left: 5%;
+    padding: 0 5%;
 
     h2{
       font-size:1.850em;
@@ -249,9 +251,13 @@ body > div.MuiDialog-root > div.MuiDialog-container.MuiDialog-scrollBody > div >
   .custom-modal{
     flex-direction: column;
     align-items: center;
+
+    .movie-poster img{
+      margin-bottom: 5%;
+    }
     
     .movie-info{
-      padding-left: 5%;
+      padding: 0 5%;
       
       h2{
         font-size:1.5em;

@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
 import './app.scss';
+import React, { useEffect, useState } from 'react';
 import MovieCard from './components/MovieCard';
-import SearchBar from './components/searchBar'
+import SearchBar from './components/SearchBar'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
-import CircularUnderLoad from './components/loader';
+import CircularUnderLoad from './components/Loader';
 import { useDispatch, useSelector } from "react-redux";
 import { getMovies } from './reducers/MovieSlice';
 import MovieModel from './models/MovieModel';
 import { store } from './store/store';
 export type RootState = ReturnType<typeof store.getState>
 import MovieIcon from '@material-ui/icons/Movie';
+import MovieDetails from './components/MovieDetails';
 
 export const App = () => {
   let dispatch = useDispatch();
@@ -78,8 +79,7 @@ export const App = () => {
             ):(  
               <CircularUnderLoad /> 
             )
-          }  
-
+          }
         </Container>
       </React.Fragment>
     </div>
