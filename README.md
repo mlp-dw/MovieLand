@@ -1,4 +1,11 @@
-# 
+# ✈️ Objectifs
+
+- Bonus possibles : 
+  + Placer un bouton dans la vue détail d'un film permettant de l'ajouter à la liste des 'picks' de l'utilisateur et de l'avertir s'il à déjà fait un choix pour cette lettre.
+
+# ⚠️ Contraintes
+
+- Utiliser Redux pour gérer la liste des films, les états de chargement et d'erreur dans la liste, et la fenetre de détails (son état ouvert/fermé et son contenu). Utiliser useState la barre de recherche.
 - Utiliser Typescript !
   - Créer des types Movie et MovieSearchResult utilisables dans toute l'application.
   - Créer une classe Omdb qui fait office de service pour appeller l'API avec la fonction de recherche et de récupération de film. (nommées searchMovies et getMovie par exemple).
@@ -7,11 +14,3 @@
 # 💡 Pensez-y
 
 - Gérez les erreurs et affichez un message dans l'interface (pas seulement dans la console ou avec une alert box)
-- Gérer les temps de chargement visuellement (Avec un composant CircularProgress de la librairie Material UI par exemple)
-
-# ✅ Livrable
-
-Pusher le code sur un dépot Github public.
-
-- Bonus :
-  + Builder et déployer l'app ( e.g. sur github-pages ).
